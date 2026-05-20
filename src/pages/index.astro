@@ -1,5 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const CF = '-sPAUAWeA405NiWJ0SNIQA';
+const heroImg   = `https://imagedelivery.net/${CF}/5a039890-c1aa-49c4-f98e-46aad2763e00/public`;
+const secondImg = `https://imagedelivery.net/${CF}/acee44b7-0888-4105-ae50-f87f130fbd00/public`;
 ---
 <BaseLayout>
   <!-- Scanline overlay -->
@@ -8,9 +12,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <!-- Hero -->
   <section style="min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:2rem;position:relative;overflow:hidden;">
 
-    <!-- Background: Cloudflare Images CDN —
-         Replace URL below with your imagedelivery.net variant URL after uploading to Cloudflare Images -->
-    <div aria-hidden="true" style="position:absolute;inset:0;background:url('https://imagedelivery.net/ACCOUNT_HASH/area51-hero/public') center/cover no-repeat,#000;opacity:0.25;"></div>
+    <!-- Cloudflare Images CDN — Hero background -->
+    <div
+      aria-hidden="true"
+      style={`position:absolute;inset:0;background:url('${heroImg}') center/cover no-repeat,#000;opacity:0.38;`}
+    ></div>
 
     <div style="position:relative;z-index:1;max-width:860px;">
       <p style="letter-spacing:0.4em;font-size:0.75rem;color:#00ff41;text-transform:uppercase;margin-bottom:1.2rem;">CLASSIFIED // NV-51 // EYES ONLY</p>
@@ -31,7 +37,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div style="margin-top:2.5rem;">
         <a
           href="mailto:sales@desertrich.com?subject=area51.monster%20Acquisition%20Inquiry&body=I'm%20interested%20in%20acquiring%20area51.monster%20and/or%20the%20associated%20story%20concept."
-          style="display:inline-block;padding:1rem 2.6rem;background:#00ff41;color:#000;font-family:'Courier New',monospace;font-weight:900;font-size:1.05rem;letter-spacing:0.1em;text-transform:uppercase;border:none;cursor:pointer;transition:background 0.2s;"
+          style="display:inline-block;padding:1rem 2.6rem;background:#00ff41;color:#000;font-family:'Courier New',monospace;font-weight:900;font-size:1.05rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:background 0.2s;"
         >
           ACQUIRE THIS DOMAIN
         </a>
@@ -51,6 +57,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <p style="line-height:1.9;margin-bottom:1.4rem;">
       What if the excavations served a different purpose entirely? An underground storage complex of unprecedented scale — designed not for human aircraft, but for vehicles that did not originate on this planet. Hangars carved from bedrock. Climate-controlled vaults. A network of pressurized tunnels following the geography westward, terminating somewhere along the Pacific.
     </p>
+
+    <!-- Cloudflare Images CDN — Secondary image -->
+    <div style="margin:2.5rem 0;position:relative;overflow:hidden;">
+      <img
+        src={secondImg}
+        alt="Subterranean Nevada desert excavation — classified infrastructure"
+        width="800"
+        height="450"
+        loading="lazy"
+        decoding="async"
+        style="width:100%;height:auto;display:block;opacity:0.82;border:1px solid #1a1a1a;"
+      />
+      <p style="margin-top:0.5rem;font-size:0.65rem;color:#2a2a2a;letter-spacing:0.2em;text-transform:uppercase;">CLASSIFIED IMAGERY // NV-51 SECTOR</p>
+    </div>
+
     <p style="line-height:1.9;margin-bottom:1.4rem;">
       The tunnel-to-ocean hypothesis is not new. What is new is the narrative architecture built around it — a script concept, a world, a mythology ready for film or series development.
     </p>
@@ -69,14 +90,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </ul>
   </section>
 
-  <!-- Obscure acquisition trigger (hidden in plain sight) -->
+  <!-- Obscure acquisition trigger -->
   <section style="padding:2rem;text-align:center;">
     <p style="font-size:0.65rem;color:#1c1c1c;letter-spacing:0.3em;text-transform:uppercase;">SIGNAL ACQUISITION PROTOCOL</p>
     <a
       href="mailto:sales@desertrich.com?subject=%5BSIGNAL%5D%20area51.monster%20Acquisition&body=Initiating%20acquisition%20protocol."
       style="display:inline-block;margin-top:0.5rem;width:12px;height:12px;background:#00ff41;border-radius:50%;opacity:0.18;transition:opacity 0.3s;"
       aria-label="Acquisition signal"
-      title=""
       onmouseover="this.style.opacity='1'"
       onmouseout="this.style.opacity='0.18'"
     ></a>
