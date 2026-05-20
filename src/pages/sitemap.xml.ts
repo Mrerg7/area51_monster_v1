@@ -1,8 +1,10 @@
-// Astro's @astrojs/sitemap integration auto-generates /sitemap-index.xml
-// This file is a fallback redirect for legacy crawlers
+// Removed: caused conflict with @astrojs/sitemap auto-generation
+// @astrojs/sitemap emits /sitemap-index.xml and /sitemap-0.xml at build time
+export const prerender = false;
+
 export async function GET() {
   return new Response(null, {
     status: 301,
-    headers: { Location: '/sitemap-index.xml' }
+    headers: { Location: '/sitemap-index.xml' },
   });
 }
