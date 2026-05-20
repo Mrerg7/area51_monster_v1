@@ -1,0 +1,6 @@
+name = "area51-monster"
+compatibility_date = "2024-09-23"
+pages_build_output_dir = "./dist"
+
+[env.production]
+name = "area51-monster"
