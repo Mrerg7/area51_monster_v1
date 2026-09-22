@@ -31,7 +31,7 @@ npm run build
 
 echo ""
 echo "🚀  Deploying to Cloudflare Pages..."
-wrangler pages deploy dist --project-name=area51-monster
+wrangler pages deploy dist --project-name=area51-monster-v1a
 
 echo ""
 echo "✅  Done! https://area51.monster"
