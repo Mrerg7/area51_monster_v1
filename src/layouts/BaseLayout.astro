@@ -1,11 +1,75 @@
 ---
+import { SITE } from '../data/site';
+
+interface Crumb {
+  name: string;
+  path: string;
+}
+
 const {
   title = 'AREA 51 — Alien & Spaceship Storage | Nevada Desert',
-  description = 'Deep beneath the Nevada desert lies the most classified real estate on Earth. Alien spacecraft hangars, subterranean tunnels leading to the Pacific. Area 51 holds the story of the century — available for acquisition, film, or development.',
-  ogImage = 'https://imagedelivery.net/-sPAUAWeA405NiWJ0SNIQA/5a039890-c1aa-49c4-f98e-46aad2763e00/public',
+  description = SITE.defaultDescription,
+  ogImage = SITE.ogImage,
+  jsonLd = [],
+  crumbs = null,
+  preloadImage = null,
+  noindex = false,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).href;
+const websiteId = `${SITE.url}#website`;
+const orgId = `${SITE.url}#organization`;
+
+const breadcrumbNode = crumbs
+  ? {
+      '@type': 'BreadcrumbList',
+      '@id': `${canonicalURL}#breadcrumb`,
+      itemListElement: crumbs.map((c: Crumb, i: number) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: c.name,
+        item: new URL(c.path, SITE.url).href,
+      })),
+    }
+  : null;
+
+const graph = [
+  {
+    '@type': 'WebSite',
+    '@id': websiteId,
+    url: SITE.url,
+    name: SITE.fullName,
+    description,
+    inLanguage: 'en-US',
+    publisher: { '@id': orgId },
+  },
+  {
+    '@type': 'Organization',
+    '@id': orgId,
+    name: SITE.owner,
+    url: SITE.url,
+    email: SITE.email,
+    logo: { '@type': 'ImageObject', url: ogImage },
+    sameAs: [SITE.github, SITE.siteOwnerUrl],
+  },
+  {
+    '@type': 'WebPage',
+    '@id': `${canonicalURL}#webpage`,
+    url: canonicalURL,
+    name: title,
+    description,
+    inLanguage: 'en-US',
+    isPartOf: { '@id': websiteId },
+    ...(breadcrumbNode ? { breadcrumb: { '@id': `${canonicalURL}#breadcrumb` } } : {}),
+  },
+  ...(breadcrumbNode ? [breadcrumbNode] : []),
+  ...jsonLd,
+];
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': graph,
+};
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -15,6 +79,16 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site).href;
   <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonicalURL} />
+  <meta
+    name="robots"
+    content={
+      noindex
+        ? 'noindex, follow'
+        : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
+    }
+  />
+  <meta name="author" content={SITE.owner} />
+  <meta name="theme-color" content="#000000" />
 
   <!-- Google Search Console Verification -->
   <meta name="google-site-verification" content="r6-gXeZicxeh8P5nBmttj3RfU9Dze3Rpi496nVff_iY" />
@@ -27,32 +101,24 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site).href;
   <meta property="og:image" content={ogImage} />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content={title} />
   <meta property="og:site_name" content="AREA 51" />
+  <meta property="og:locale" content="en_US" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={ogImage} />
+  <meta name="twitter:image:alt" content={title} />
 
   <!-- Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "AREA 51 — Alien & Spaceship Storage",
-    "url": "https://area51.monster/",
-    "description": "Deep beneath the Nevada desert lies the most classified real estate on Earth. Alien spacecraft storage, subterranean tunnels, and an unclassified story available for acquisition or film development.",
-    "potentialAction": {
-      "@type": "ContactAction",
-      "name": "Domain & Story Acquisition",
-      "target": "mailto:sales@desertrich.com"
-    }
-  }
-  </script>
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
+  {preloadImage && <link rel="preload" as="image" href={preloadImage} />}
   <link rel="preconnect" href="https://imagedelivery.net" crossorigin />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
 
   <style is:global>
     :root {
@@ -73,9 +139,126 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site).href;
     }
     a { color: var(--green); text-decoration: none; }
     a:hover { text-decoration: underline; }
+    img { max-width: 100%; height: auto; }
+
+    .skip-link {
+      position: absolute; left: -9999px; top: 0; z-index: 1000;
+      background: var(--green); color: #000; padding: 0.6rem 1rem; font-weight: 700;
+    }
+    .skip-link:focus { left: 0; }
+
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; flex-wrap: wrap;
+      padding: 0.85rem 1.5rem;
+      background: rgba(0, 0, 0, 0.88);
+      border-bottom: 1px solid #111;
+      backdrop-filter: blur(6px);
+    }
+    .nav-logo {
+      font-weight: 900; letter-spacing: 0.14em; color: #fff;
+      text-transform: uppercase; font-size: 0.95rem;
+    }
+    .nav-logo span { color: var(--green); }
+    .nav-logo:hover { text-decoration: none; }
+    .nav-list {
+      display: flex; flex-wrap: wrap; gap: 0.35rem 1.1rem;
+      list-style: none; font-size: 0.68rem; letter-spacing: 0.16em;
+    }
+    .nav-list a { color: #7a7a7a; text-transform: uppercase; }
+    .nav-list a:hover { color: var(--green); text-decoration: none; }
+    .nav-list a[aria-current='page'] { color: var(--green); }
+
+    main { padding-top: 3.4rem; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 4rem 1.5rem; }
+    .container-wide { max-width: 980px; margin: 0 auto; padding: 4rem 1.5rem; }
+
+    .h2 {
+      font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+      color: #fff; text-transform: uppercase; letter-spacing: 0.08em;
+      margin-bottom: 1.8rem; border-left: 3px solid var(--green); padding-left: 1rem;
+    }
+    .h3 {
+      font-size: clamp(1.05rem, 2.4vw, 1.35rem);
+      color: #fff; text-transform: uppercase; letter-spacing: 0.06em;
+      margin: 2.2rem 0 0.9rem;
+    }
+
+    .prose p { line-height: 1.9; margin-bottom: 1.4rem; }
+    .prose strong { color: #fff; }
+    .prose a { border-bottom: 1px solid rgba(0, 255, 65, 0.35); }
+    .prose ul { list-style: none; margin-bottom: 1.6rem; }
+    .prose ul li {
+      padding: 0.55rem 0; border-bottom: 1px solid #1a1a1a; line-height: 1.7;
+    }
+
+    .btn {
+      display: inline-block; padding: 1rem 2.6rem;
+      background: var(--green); color: #000;
+      font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase;
+      transition: background 0.2s;
+    }
+    .btn:hover { background: #00cc34; text-decoration: none; }
+    .btn-note {
+      margin-top: 0.75rem; font-size: 0.72rem; color: #3a3a3a; letter-spacing: 0.15em;
+    }
+
+    .file-list { list-style: none; margin: 1.5rem 0 0; }
+    .file-list li { border-bottom: 1px solid #1a1a1a; }
+    .file-list a {
+      display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+      padding: 1rem 0.25rem; color: var(--text);
+    }
+    .file-list a:hover { color: var(--green); text-decoration: none; background: #060d07; }
+    .file-list .file-title { color: #fff; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
+    .file-list a:hover .file-title { color: var(--green); }
+    .file-list .file-meta { font-size: 0.7rem; color: #555; letter-spacing: 0.14em; text-transform: uppercase; }
+
+    .crumbs { font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 2rem; }
+    .crumbs ol { list-style: none; display: flex; flex-wrap: wrap; }
+    .crumbs a { color: #555; }
+    .crumbs a:hover { color: var(--green); }
+    .crumbs [aria-current='page'] { color: var(--green); }
+
+    .cta-band {
+      border: 1px solid #14251a; background: #030a05;
+      padding: 2rem 1.5rem; text-align: center; margin-top: 3rem;
+    }
+    .cta-band p { font-size: 0.7rem; letter-spacing: 0.2em; color: #555; text-transform: uppercase; margin-bottom: 1rem; }
+
+    .faq-item { border-bottom: 1px solid #1a1a1a; padding: 1.2rem 0; }
+    .faq-item h2, .faq-item h3 {
+      font-size: 1rem; color: #fff; letter-spacing: 0.05em;
+      text-transform: uppercase; margin-bottom: 0.6rem;
+    }
+    .faq-item p { line-height: 1.85; }
+
+    .site-footer {
+      border-top: 1px solid #111; padding: 2.5rem 1.5rem; text-align: center;
+      font-size: 0.7rem; letter-spacing: 0.16em;
+    }
+    .footer-list {
+      display: flex; flex-wrap: wrap; justify-content: center;
+      gap: 0.5rem 1.4rem; list-style: none; margin-bottom: 1.2rem;
+      font-size: 0.68rem; text-transform: uppercase;
+    }
+    .footer-list a { color: #7a7a7a; }
+    .footer-list a:hover { color: var(--green); text-decoration: none; }
+    .footer-meta { color: #4a4a4a; margin-bottom: 0.6rem; }
+    .footer-meta a { color: #4a4a4a; }
+    .footer-meta a:hover { color: var(--green); }
+    .footer-legal { color: #2a2a2a; }
+
+    @media (max-width: 640px) {
+      .nav { justify-content: center; }
+      main { padding-top: 5.6rem; }
+    }
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
   <slot />
 </body>
 </html>

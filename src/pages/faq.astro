@@ -1,0 +1,94 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { SITE } from '../data/site';
+
+const title = 'FAQ — area51.monster Domain, Story & Acquisition';
+const description =
+  'Answers on acquiring area51.monster, the IP package, the tunnel-to-ocean story, film licensing, and how to make an offer.';
+const crumbs = [{ name: 'FAQ', path: '/faq/' }];
+
+const faqs = [
+  {
+    q: 'Is area51.monster for sale?',
+    a: `Yes. The domain area51.monster is available for acquisition, along with the associated narrative IP. Offers are handled directly at ${SITE.email}.`,
+  },
+  {
+    q: 'What is included in the acquisition package?',
+    a: 'The domain name, the excavation lore document, the film/series concept (logline and synopsis), and the broader classified-mythology framework. Assets can be purchased together or separately — see the acquisition page for the full breakdown.',
+  },
+  {
+    q: 'Can I buy only the domain, without the story?',
+    a: 'Yes. Domain-only acquisition is available. The domain transfers through a licensed escrow service like any premium domain sale.',
+  },
+  {
+    q: 'What is the tunnel-to-ocean story?',
+    a: 'A narrative built on the unexplained volume of earth removed from the Area 51 area: underground hangars carved from bedrock, a pressurized tunnel network running west, and a Pacific terminal. It is fictional narrative IP developed for film and series — the full premise is documented in the story file.',
+  },
+  {
+    q: 'Can the concept be optioned for a film or TV series?',
+    a: `Yes. The concept is written as a development package — feature, limited series, or prestige series potential. Producers and development executives can request it at ${SITE.email}.`,
+  },
+  {
+    q: 'Is this site affiliated with the U.S. government or Area 51 operations?',
+    a: 'No. area51.monster is an independent narrative property and domain-for-sale listing. It is not affiliated with, endorsed by, or connected to any government entity.',
+  },
+  {
+    q: 'How do I make an offer?',
+    a: `Email ${SITE.email} with the asset of interest (domain, script concept, series IP, or license) and your offer. You will receive scope, pricing, and terms in return.`,
+  },
+  {
+    q: 'Who owns area51.monster?',
+    a: `The domain and IP are held by ${SITE.owner} (desertrich.com) and are being offered for acquisition or partnership.`,
+  },
+];
+
+const jsonLd = [
+  {
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  },
+];
+---
+<BaseLayout title={title} description={description} crumbs={crumbs} jsonLd={jsonLd}>
+  <Nav active="/faq/" />
+  <main id="main">
+    <section class="container prose">
+      <Breadcrumbs crumbs={crumbs} />
+      <p style="letter-spacing:0.4em;font-size:0.7rem;color:#00ff41;text-transform:uppercase;margin-bottom:1rem;">FILE 04 // CLEARED QUESTIONS</p>
+      <h1 class="h2">{title}</h1>
+
+      {
+        faqs.map((f) => (
+          <div class="faq-item">
+            <h2>{f.q}</h2>
+            <p>{f.a}</p>
+          </div>
+        ))
+      }
+
+      <div class="cta-band">
+        <p>QUESTION NOT CLEARED?</p>
+        <a
+          href={`mailto:${SITE.email}?subject=area51.monster%20FAQ%20Inquiry`}
+          class="btn"
+        >
+          ASK DIRECTLY
+        </a>
+        <p class="btn-note" style="margin-top:0.9rem;">{SITE.email}</p>
+        <p style="margin-top:1rem;font-size:0.68rem;letter-spacing:0.16em;">
+          <a href="/acquisition/" style="color:#555;">ACQUISITION DETAILS →</a>
+          &nbsp;//&nbsp;
+          <a href="/film-concept/" style="color:#555;">FILM CONCEPT →</a>
+        </p>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

@@ -1,110 +1,157 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { SITE } from '../data/site';
 
-const CF = '-sPAUAWeA405NiWJ0SNIQA';
-const heroImg   = `https://imagedelivery.net/${CF}/5a039890-c1aa-49c4-f98e-46aad2763e00/public`;
-const secondImg = `https://imagedelivery.net/${CF}/acee44b7-0888-4105-ae50-f87f130fbd00/public`;
+const heroImg = SITE.ogImage;
+const secondImg = SITE.secondaryImage;
+const mailto = `mailto:${SITE.email}?subject=area51.monster%20Acquisition%20Inquiry&body=I'm%20interested%20in%20acquiring%20area51.monster%20and/or%20the%20associated%20story%20concept.`;
 ---
-<BaseLayout>
-  <!-- Scanline overlay -->
-  <div aria-hidden="true" style="pointer-events:none;position:fixed;inset:0;z-index:999;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.12) 0px,rgba(0,0,0,0.12) 1px,transparent 1px,transparent 2px);"></div>
+<BaseLayout preloadImage={heroImg}>
+  <div aria-hidden="true" style="pointer-events:none;position:fixed;inset:0;z-index:99;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.12) 0px,rgba(0,0,0,0.12) 1px,transparent 1px,transparent 2px);"></div>
+  <Nav active="/" />
 
-  <!-- Hero -->
-  <section style="min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:2rem;position:relative;overflow:hidden;">
+  <main id="main">
+    <!-- Hero -->
+    <section style="min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:5rem 2rem 3rem;position:relative;overflow:hidden;">
+      <div
+        aria-hidden="true"
+        style={`position:absolute;inset:0;background:url('${heroImg}') center/cover no-repeat,#000;opacity:0.38;`}
+      ></div>
 
-    <!-- Cloudflare Images CDN — Hero background -->
-    <div
-      aria-hidden="true"
-      style={`position:absolute;inset:0;background:url('${heroImg}') center/cover no-repeat,#000;opacity:0.38;`}
-    ></div>
+      <div style="position:relative;z-index:1;max-width:860px;">
+        <p style="letter-spacing:0.4em;font-size:0.75rem;color:#00ff41;text-transform:uppercase;margin-bottom:1.2rem;">CLASSIFIED // NV-51 // EYES ONLY</p>
 
-    <div style="position:relative;z-index:1;max-width:860px;">
-      <p style="letter-spacing:0.4em;font-size:0.75rem;color:#00ff41;text-transform:uppercase;margin-bottom:1.2rem;">CLASSIFIED // NV-51 // EYES ONLY</p>
+        <h1 style="font-size:clamp(2.4rem,7vw,5.5rem);font-weight:900;line-height:1.05;color:#fff;letter-spacing:-0.02em;text-transform:uppercase;">
+          AREA<span style="color:#00ff41;">51</span>.MONSTER
+        </h1>
 
-      <h1 style="font-size:clamp(2.4rem,7vw,5.5rem);font-weight:900;line-height:1.05;color:#fff;letter-spacing:-0.02em;text-transform:uppercase;">
-        AREA<span style="color:#00ff41;">51</span>.MONSTER
-      </h1>
+        <p style="margin:1.5rem auto 0;font-size:clamp(1rem,2.5vw,1.35rem);max-width:640px;line-height:1.7;color:#b0b0b0;">
+          Deep beneath the Nevada desert, miles of excavated earth have carved out the most classified real estate on the planet — alien spacecraft hangars, subterranean tunnels stretching toward the Pacific coast, and a story the world has never been allowed to read.
+        </p>
 
-      <p style="margin:1.5rem auto 0;font-size:clamp(1rem,2.5vw,1.35rem);max-width:640px;line-height:1.7;color:#b0b0b0;">
-        Deep beneath the Nevada desert, miles of excavated earth have carved out the most classified real estate on the planet — alien spacecraft hangars, subterranean tunnels stretching toward the Pacific coast, and a story the world has never been allowed to read.
-      </p>
+        <p style="margin:1.2rem auto 0;font-size:clamp(0.9rem,2vw,1.1rem);max-width:580px;line-height:1.7;color:#6a6a6a;font-style:italic;">
+          So much earth has been removed from this site that what remains below defies conventional explanation. Spaceship storage. Tunnel networks. Ocean access.
+        </p>
 
-      <p style="margin:1.2rem auto 0;font-size:clamp(0.9rem,2vw,1.1rem);max-width:580px;line-height:1.7;color:#6a6a6a;font-style:italic;">
-        So much earth has been removed from this site that what remains below defies conventional explanation. Spaceship storage. Tunnel networks. Ocean access.
-      </p>
+        <div style="margin-top:2.5rem;">
+          <a href={mailto} class="btn">ACQUIRE THIS DOMAIN</a>
+          <p class="btn-note">{SITE.email} // CLEARED INQUIRIES ONLY</p>
+        </div>
 
-      <!-- Primary CTA -->
-      <div style="margin-top:2.5rem;">
-        <a
-          href="mailto:sales@desertrich.com?subject=area51.monster%20Acquisition%20Inquiry&body=I'm%20interested%20in%20acquiring%20area51.monster%20and/or%20the%20associated%20story%20concept."
-          style="display:inline-block;padding:1rem 2.6rem;background:#00ff41;color:#000;font-family:'Courier New',monospace;font-weight:900;font-size:1.05rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:background 0.2s;"
-        >
-          ACQUIRE THIS DOMAIN
-        </a>
-        <p style="margin-top:0.75rem;font-size:0.72rem;color:#3a3a3a;letter-spacing:0.15em;">sales@desertrich.com // CLEARED INQUIRIES ONLY</p>
+        <p style="margin-top:2.2rem;font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:#4a4a4a;">
+          <a href="/acquisition/" style="color:#4a4a4a;">DOMAIN FOR SALE</a> //
+          <a href="/film-concept/" style="color:#4a4a4a;">SCRIPT &amp; SERIES IP</a> //
+          <a href="/faq/" style="color:#4a4a4a;">ACQUISITION FAQ</a>
+        </p>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Story Section -->
-  <section style="max-width:800px;margin:0 auto;padding:5rem 2rem;">
-    <h2 style="font-size:clamp(1.4rem,3.5vw,2.2rem);color:#fff;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:1.8rem;border-left:3px solid #00ff41;padding-left:1rem;">
-      The Excavation Story
-    </h2>
-    <p style="line-height:1.9;margin-bottom:1.4rem;">
-      The sheer volume of earth displaced at and around the Area 51 complex in the Nevada desert is a geological anomaly that has never been fully accounted for. Official narratives describe test aircraft and radar experimentation. They do not account for cubic miles of removed desert floor.
-    </p>
-    <p style="line-height:1.9;margin-bottom:1.4rem;">
-      What if the excavations served a different purpose entirely? An underground storage complex of unprecedented scale — designed not for human aircraft, but for vehicles that did not originate on this planet. Hangars carved from bedrock. Climate-controlled vaults. A network of pressurized tunnels following the geography westward, terminating somewhere along the Pacific.
-    </p>
+    <!-- Dossier index — internal link hub -->
+    <section class="container" aria-labelledby="dossiers-heading">
+      <h2 id="dossiers-heading" class="h2">Decrypted Dossiers</h2>
+      <p class="prose" style="margin-bottom:0.5rem;">Four files cleared for public release. Each document opens a different vector of the same underground.</p>
+      <ul class="file-list">
+        <li>
+          <a href="/story/">
+            <span class="file-title">01 // The Excavation Story</span>
+            <span class="file-meta">Geological anomaly · tunnel network · Pacific terminal</span>
+          </a>
+        </li>
+        <li>
+          <a href="/film-concept/">
+            <span class="file-title">02 // Film &amp; Series Concept</span>
+            <span class="file-meta">Logline · synopsis · development package</span>
+          </a>
+        </li>
+        <li>
+          <a href="/acquisition/">
+            <span class="file-title">03 // Domain &amp; IP Acquisition</span>
+            <span class="file-meta">area51.monster for sale · licensing · escrow</span>
+          </a>
+        </li>
+        <li>
+          <a href="/faq/">
+            <span class="file-title">04 // Acquisition FAQ</span>
+            <span class="file-meta">Process · inclusions · contact protocol</span>
+          </a>
+        </li>
+      </ul>
+    </section>
 
-    <!-- Cloudflare Images CDN — Secondary image -->
-    <div style="margin:2.5rem 0;position:relative;overflow:hidden;">
-      <img
-        src={secondImg}
-        alt="Subterranean Nevada desert excavation — classified infrastructure"
-        width="800"
-        height="450"
-        loading="lazy"
-        decoding="async"
-        style="width:100%;height:auto;display:block;opacity:0.82;border:1px solid #1a1a1a;"
-      />
-      <p style="margin-top:0.5rem;font-size:0.65rem;color:#2a2a2a;letter-spacing:0.2em;text-transform:uppercase;">CLASSIFIED IMAGERY // NV-51 SECTOR</p>
-    </div>
+    <!-- Story teaser -->
+    <section class="container" aria-labelledby="story-heading">
+      <h2 id="story-heading" class="h2">The Excavation Story</h2>
+      <div class="prose">
+        <p>
+          The sheer volume of earth displaced at and around the Area 51 complex in the Nevada desert is a geological anomaly that has never been fully accounted for. Official narratives describe test aircraft and radar experimentation. They do not account for cubic miles of removed desert floor.
+        </p>
+        <p>
+          What if the excavations served a different purpose entirely? An underground storage complex of unprecedented scale — designed not for human aircraft, but for vehicles that did not originate on this planet. Hangars carved from bedrock. Climate-controlled vaults. A network of pressurized tunnels following the geography westward, terminating somewhere along the Pacific.
+        </p>
+      </div>
 
-    <p style="line-height:1.9;margin-bottom:1.4rem;">
-      The tunnel-to-ocean hypothesis is not new. What is new is the narrative architecture built around it — a script concept, a world, a mythology ready for film or series development.
-    </p>
+      <div style="margin:2.5rem 0;position:relative;overflow:hidden;">
+        <img
+          src={secondImg}
+          alt="Subterranean Nevada desert excavation site with classified underground infrastructure"
+          width="800"
+          height="450"
+          loading="lazy"
+          decoding="async"
+          style="width:100%;height:auto;display:block;opacity:0.82;border:1px solid #1a1a1a;"
+        />
+        <p style="margin-top:0.5rem;font-size:0.65rem;color:#2a2a2a;letter-spacing:0.2em;text-transform:uppercase;">CLASSIFIED IMAGERY // NV-51 SECTOR</p>
+      </div>
 
-    <h2 style="font-size:clamp(1.4rem,3.5vw,2.2rem);color:#fff;text-transform:uppercase;letter-spacing:0.08em;margin:3rem 0 1.8rem;border-left:3px solid #00ff41;padding-left:1rem;">
-      For Acquisition
-    </h2>
-    <p style="line-height:1.9;margin-bottom:1.4rem;">
-      <strong style="color:#fff;">area51.monster</strong> is available for domain acquisition, story concept licensing, movie script sale, or film/series development partnership. The domain name, the narrative IP, and the conceptual framework are offered as a single package or individually.
-    </p>
-    <ul style="list-style:none;padding:0;margin-bottom:2rem;">
-      <li style="padding:0.6rem 0;border-bottom:1px solid #1a1a1a;color:#b0b0b0;">⬡ &nbsp;Domain acquisition — <strong style="color:#fff;">area51.monster</strong></li>
-      <li style="padding:0.6rem 0;border-bottom:1px solid #1a1a1a;color:#b0b0b0;">⬡ &nbsp;Movie script — Nevada underground / tunnel system concept</li>
-      <li style="padding:0.6rem 0;border-bottom:1px solid #1a1a1a;color:#b0b0b0;">⬡ &nbsp;Series development deal — classified mythology universe</li>
-      <li style="padding:0.6rem 0;border-bottom:1px solid #1a1a1a;color:#b0b0b0;">⬡ &nbsp;IP licensing — alien storage / desert mythology</li>
-    </ul>
-  </section>
+      <div class="prose">
+        <p>
+          The tunnel-to-ocean hypothesis is not new. What is new is the narrative architecture built around it — a <a href="/film-concept/">script concept</a>, a world, a mythology ready for film or series development.
+        </p>
+        <p>
+          <a href="/story/">Read the full excavation file →</a>
+        </p>
+      </div>
+    </section>
 
-  <!-- Obscure acquisition trigger -->
-  <section style="padding:2rem;text-align:center;">
-    <p style="font-size:0.65rem;color:#1c1c1c;letter-spacing:0.3em;text-transform:uppercase;">SIGNAL ACQUISITION PROTOCOL</p>
-    <a
-      href="mailto:sales@desertrich.com?subject=%5BSIGNAL%5D%20area51.monster%20Acquisition&body=Initiating%20acquisition%20protocol."
-      style="display:inline-block;margin-top:0.5rem;width:12px;height:12px;background:#00ff41;border-radius:50%;opacity:0.18;transition:opacity 0.3s;"
-      aria-label="Acquisition signal"
-      onmouseover="this.style.opacity='1'"
-      onmouseout="this.style.opacity='0.18'"
-    ></a>
-  </section>
+    <!-- Acquisition teaser -->
+    <section class="container" aria-labelledby="acq-heading">
+      <h2 id="acq-heading" class="h2">For Acquisition</h2>
+      <div class="prose">
+        <p>
+          <strong>area51.monster</strong> is available for domain acquisition, story concept licensing, movie script sale, or film/series development partnership. The domain name, the narrative IP, and the conceptual framework are offered as a single package or individually.
+        </p>
+        <ul>
+          <li>⬡ &nbsp;Domain acquisition — <strong>area51.monster</strong></li>
+          <li>⬡ &nbsp;Movie script — Nevada underground / tunnel system concept</li>
+          <li>⬡ &nbsp;Series development deal — classified mythology universe</li>
+          <li>⬡ &nbsp;IP licensing — alien storage / desert mythology</li>
+        </ul>
+        <p><a href="/acquisition/">Full acquisition details &amp; process →</a></p>
+      </div>
 
-  <!-- Footer -->
-  <footer style="border-top:1px solid #111;padding:2rem;text-align:center;font-size:0.7rem;color:#2a2a2a;letter-spacing:0.2em;">
-    <p>area51.monster &mdash; CLASSIFIED // ALL RIGHTS RESERVED // DESERTRICH.COM</p>
-    <p style="margin-top:0.4rem;"><a href="mailto:sales@desertrich.com" style="color:#2a2a2a;">sales@desertrich.com</a></p>
-  </footer>
+      <div class="cta-band">
+        <p>SIGNAL ACQUISITION PROTOCOL</p>
+        <a href={mailto} class="btn">OPEN ACQUISITION CHANNEL</a>
+        <p class="btn-note" style="margin-top:0.9rem;">{SITE.email}</p>
+      </div>
+    </section>
+
+    <!-- FAQ preview for rich results + internal link -->
+    <section class="container" aria-labelledby="faq-heading">
+      <h2 id="faq-heading" class="h2">Frequently Asked</h2>
+      <div class="faq-item">
+        <h3>Is area51.monster for sale?</h3>
+        <p>Yes. The domain, the screenplay concept, and the wider mythology IP are available — separately or as one package. See the <a href="/acquisition/">acquisition page</a>.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Can the story be optioned for film or TV?</h3>
+        <p>Yes. The concept is written for development — logline, synopsis, and series potential are outlined in the <a href="/film-concept/">film concept file</a>.</p>
+      </div>
+      <p style="margin-top:1.5rem;"><a href="/faq/">All acquisition questions →</a></p>
+    </section>
+  </main>
+
+  <Footer />
 </BaseLayout>

@@ -1,15 +1,31 @@
 # area51.monster
 
-Astro static build + Cloudflare Pages global edge deployment.
+**Area 51 domain & narrative IP for sale** — alien spacecraft storage, subterranean tunnels to the Pacific, and a development-ready film/series concept.
+
+Live site: **[https://area51.monster/](https://area51.monster/)**
+
+## What this is
+
+An Astro static site on Cloudflare Pages marketing a premium domain (`area51.monster`) plus an accompanying classified-mythology IP package (screenplay concept, series framework, lore documentation).
+
+## Pages
+
+| Path | Purpose |
+| --- | --- |
+| `/` | Homepage — domain pitch + dossier index |
+| `/story/` | The Excavation Story (long-form lore) |
+| `/film-concept/` | Film & series development package |
+| `/acquisition/` | Domain / IP sale details and process |
+| `/faq/` | Acquisition FAQ (FAQPage schema) |
 
 ## Stack
-- **Framework:** Astro 4 (static output)
+
+- **Framework:** Astro 4 (static output, `trailingSlash: 'always'`)
 - **Hosting:** Cloudflare Pages (edge)
 - **CDN:** Cloudflare Images (`imagedelivery.net`)
-- **Meta:** Full OG + Twitter Card + JSON-LD structured data
-- **Sitemap:** `@astrojs/sitemap` auto-generation
-- **Robots:** `public/robots.txt`
-- **CTA:** mailto:sales@desertrich.com
+- **SEO:** per-page titles/descriptions, canonical URLs, OG + Twitter Cards, JSON-LD `@graph` (WebSite, Organization, WebPage, BreadcrumbList, FAQPage, Product, CreativeWork), `robots` meta, XML sitemap (`@astrojs/sitemap`), `robots.txt`, `llms.txt`
+- **Technical:** trailing-slash + www canonicalization middleware (`functions/_middleware.js`), `_redirects`, security headers (`public/_headers`)
+- **CTA:** `mailto:sales@desertrich.com`
 
 ## Setup
 
@@ -26,14 +42,16 @@ npm run build
 3. Output directory: `dist`
 4. Node version env var: `NODE_VERSION = 20`
 
-## Cloudflare Images Setup
+Or use the bundled sync script (pull → commit → push → build → deploy):
 
-1. Upload hero image to Cloudflare Images dashboard
-2. Copy the `imagedelivery.net/ACCOUNT_HASH/IMAGE_ID/public` URL
-3. Replace the placeholder URL in `src/pages/index.astro` hero background div
+```bash
+./sync.sh
+```
 
 ## Domain
-area51.monster — point DNS to Cloudflare Pages via CNAME.
+
+area51.monster — DNS points to Cloudflare Pages.
 
 ## Acquisition Contact
-sales@desertrich.com
+
+sales@desertrich.com — [https://area51.monster/acquisition/](https://area51.monster/acquisition/)

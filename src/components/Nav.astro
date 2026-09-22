@@ -1,0 +1,24 @@
+---
+import { NAV } from '../data/site';
+
+const { active = '' } = Astro.props;
+---
+<header class="nav">
+  <a href="/" class="nav-logo" aria-label="area51.monster home">AREA<span>51</span></a>
+  <nav aria-label="Primary">
+    <ul class="nav-list">
+      {
+        NAV.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              aria-current={active === item.href ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>

@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { SITE } from '../data/site';
+
+const title = 'Area 51 Film & Series Concept — Alien Storage Script';
+const description =
+  'Logline, synopsis, and series potential for the Area 51 underground spaceship storage concept. Option or license the IP — area51.monster.';
+const crumbs = [{ name: 'FILM CONCEPT', path: '/film-concept/' }];
+
+const jsonLd = [
+  {
+    '@type': 'CreativeWork',
+    name: 'AREA 51 — Underground Storage Concept',
+    genre: ['Science Fiction', 'Thriller', 'Conspiracy'],
+    inLanguage: 'en',
+    url: new URL('/film-concept/', SITE.url).href,
+    creator: { '@type': 'Organization', name: SITE.owner },
+    about:
+      'Alien spacecraft stored beneath the Nevada desert; a tunnel network running west to the Pacific.',
+    offersAvailable: true,
+  },
+];
+---
+<BaseLayout title={title} description={description} crumbs={crumbs} jsonLd={jsonLd}>
+  <Nav active="/film-concept/" />
+  <main id="main">
+    <article class="container prose">
+      <Breadcrumbs crumbs={crumbs} />
+      <p style="letter-spacing:0.4em;font-size:0.7rem;color:#00ff41;text-transform:uppercase;margin-bottom:1rem;">FILE 02 // DEVELOPMENT PACKAGE</p>
+      <h1 class="h2">{title}</h1>
+
+      <p>
+        A myth that has outlived every debunking deserves a dramatic engine. This is a <strong>feature-film and prestige-series concept</strong> built on one geological question: where did all that Nevada dirt go?
+      </p>
+
+      <h2 class="h3">Logline</h2>
+      <p>
+        When a systems auditor cross-references excavation permits with satellite imagery, she proves the U.S. government has removed more earth from Area 51 than any surface program could explain — and finds the tunnels run west, toward the Pacific, toward something the hangars were built to keep.
+      </p>
+
+      <h2 class="h3">Synopsis</h2>
+      <p>
+        The story begins with arithmetic, not aliens. Cubic miles of displaced desert floor. Spoil fields that don't match any published program. A facility officially about test aircraft that behaves like a <strong>warehouse for vehicles that were never manufactured</strong>.
+      </p>
+      <p>
+        Our protagonist follows the excavation signature west — through pressurized tunnel geometry, classified procurement records, and a small cast of people who already know what's stored in the bedrock hangars. The deeper the tunnels go, the more the film's central tension sharpens: the storage was never for us, and something is being kept more than hidden.
+      </p>
+      <p>
+        The Pacific terminal is the third-act destination — the exit the geometry always implied.
+      </p>
+
+      <h2 class="h3">Format &amp; Potential</h2>
+      <ul>
+        <li>⬡ &nbsp;<strong>Feature film</strong> — contained thriller structure, single-location second act</li>
+        <li>⬡ &nbsp;<strong>Prestige series</strong> — anthology-adjacent conspiracy mythology, multi-season runway</li>
+        <li>⬡ &nbsp;<strong>Limited series</strong> — 6–8 episodes, investigation to ocean terminal</li>
+        <li>⬡ &nbsp;<strong>Universe IP</strong> — the <a href="/story/">excavation lore</a> extends beyond one title</li>
+      </ul>
+
+      <h2 class="h3">Why Now</h2>
+      <p>
+        Area 51 remains one of the most recognized search queries on Earth, official declassification cycles keep the subject in news cycles, and no major production currently owns the <strong>underground-storage angle</strong> — hangars, tunnels, ocean access — as narrative IP.
+      </p>
+      <p>
+        The concept, the lore document, and the domain <strong>area51.monster</strong> are offered together or separately. See <a href="/acquisition/">acquisition terms</a>.
+      </p>
+
+      <div class="cta-band">
+        <p>DEVELOPMENT INQUIRIES</p>
+        <a
+          href={`mailto:${SITE.email}?subject=AREA%2051%20Film%20%2F%20Series%20Concept%20Inquiry`}
+          class="btn"
+        >
+          OPTION / LICENSE THE IP
+        </a>
+        <p class="btn-note" style="margin-top:0.9rem;">{SITE.email} // PRODUCERS, STUDIO DEVELOPMENT, REPRESENTATION</p>
+      </div>
+    </article>
+  </main>
+  <Footer />
+</BaseLayout>

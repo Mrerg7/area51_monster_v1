@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { SITE } from '../data/site';
+
+const title = 'Acquire area51.monster — Domain & Story IP for Sale';
+const description =
+  'area51.monster is for sale: premium domain, movie script concept, and classified mythology IP. Buy the domain or license the story.';
+const crumbs = [{ name: 'ACQUISITION', path: '/acquisition/' }];
+const pageUrl = new URL('/acquisition/', SITE.url).href;
+const mailto = `mailto:${SITE.email}?subject=area51.monster%20Acquisition%20Inquiry&body=I%20would%20like%20to%20discuss%20acquisition%20of%20area51.monster.`;
+
+const jsonLd = [
+  {
+    '@type': 'Product',
+    name: 'area51.monster — Domain & Narrative IP',
+    description:
+      'Premium category-defining domain with an accompanying Area 51 underground storage mythology: screenplay concept, series framework, and lore documentation.',
+    brand: { '@type': 'Brand', name: 'DesertRich' },
+    url: pageUrl,
+    offers: {
+      '@type': 'Offer',
+      url: pageUrl,
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock',
+      seller: { '@type': 'Organization', name: SITE.owner },
+    },
+  },
+];
+---
+<BaseLayout title={title} description={description} crumbs={crumbs} jsonLd={jsonLd}>
+  <Nav active="/acquisition/" />
+  <main id="main">
+    <article class="container prose">
+      <Breadcrumbs crumbs={crumbs} />
+      <p style="letter-spacing:0.4em;font-size:0.7rem;color:#00ff41;text-transform:uppercase;margin-bottom:1rem;">FILE 03 // ACQUISITION PROTOCOL</p>
+      <h1 class="h2">{title}</h1>
+
+      <p>
+        <strong>area51.monster</strong> is a category-defining domain attached to a complete narrative IP: the excavation lore, the tunnel-to-ocean mythology, and a <a href="/film-concept/">development-ready film and series concept</a>. Available as one package or individually.
+      </p>
+
+      <h2 class="h3">What Is Available</h2>
+      <ul>
+        <li>⬡ &nbsp;<strong>Domain acquisition</strong> — area51.monster (transfer via escrow)</li>
+        <li>⬡ &nbsp;<strong>Movie script / concept sale</strong> — Nevada underground &amp; tunnel system story</li>
+        <li>⬡ &nbsp;<strong>Series development deal</strong> — classified mythology universe with multi-season runway</li>
+        <li>⬡ &nbsp;<strong>IP licensing</strong> — alien storage / desert mythology for use under license</li>
+      </ul>
+
+      <h2 class="h3">Acquisition Process</h2>
+      <ul>
+        <li>01 &nbsp;— &nbsp;Email {SITE.email} with the asset(s) of interest</li>
+        <li>02 &nbsp;— &nbsp;Receive scope, pricing, and terms</li>
+        <li>03 &nbsp;— &nbsp;Agreement executed in writing</li>
+        <li>04 &nbsp;— &nbsp;Domain transferred through a licensed escrow service; IP delivered per contract</li>
+      </ul>
+      <p>
+        Serious inquiries only — studios, domain investors, producers, and representation.
+      </p>
+
+      <h2 class="h3">Why This Domain</h2>
+      <p>
+        <strong>Area 51</strong> is a globally recognized phrase with perpetual search demand. The <strong>.monster</strong> TLD doubles as brand signal — and the domain doubles as the title of the property it carries. One asset: a memorable URL, a built-in audience curiosity, and a story world documented in <a href="/story/">the excavation file</a>.
+      </p>
+
+      <div class="cta-band">
+        <p>ACQUIRE THIS DOMAIN</p>
+        <a href={mailto} class="btn">OPEN ACQUISITION CHANNEL</a>
+        <p class="btn-note" style="margin-top:0.9rem;">{SITE.email} // CLEARED INQUIRIES ONLY</p>
+        <p style="margin-top:1rem;font-size:0.68rem;letter-spacing:0.16em;">
+          <a href="/faq/" style="color:#555;">READ THE FAQ FIRST →</a>
+        </p>
+      </div>
+    </article>
+  </main>
+  <Footer />
+</BaseLayout>

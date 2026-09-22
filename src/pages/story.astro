@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { SITE } from '../data/site';
+
+const title = 'The Excavation Story — Area 51 Tunnels & Alien Hangars';
+const description =
+  'Cubic miles of missing Nevada desert floor: bedrock hangars, tunnels to the Pacific, and the alien storage mythos behind area51.monster.';
+const crumbs = [{ name: 'THE STORY', path: '/story/' }];
+---
+<BaseLayout title={title} description={description} crumbs={crumbs}>
+  <Nav active="/story/" />
+  <main id="main">
+    <article class="container prose">
+      <Breadcrumbs crumbs={crumbs} />
+      <p style="letter-spacing:0.4em;font-size:0.7rem;color:#00ff41;text-transform:uppercase;margin-bottom:1rem;">FILE 01 // DECLASSIFIED NARRATIVE</p>
+      <h1 class="h2">{title}</h1>
+
+      <p>
+        There is a number nobody publishes: how much earth has been removed from the ground around the Area 51 complex in the Nevada desert. Official answers describe test aircraft, radar experimentation, and classified aviation programs. They do not describe <strong>cubic miles of displaced desert floor</strong> — and they do not explain where it went.
+      </p>
+
+      <h2 class="h3">The Volume Problem</h2>
+      <p>
+        Excavation on that scale leaves a signature. Haul roads, spoil fields, ventilation, dust plumes visible from aircraft hundreds of miles away. Observed over decades, the arithmetic stops looking like a hangar extension and starts looking like a <strong>subterranean real-estate project</strong> — one built for storage at a scale no surface runway requires.
+      </p>
+      <p>
+        The conventional explanation has a hole in it roughly the size of the hole in the ground.
+      </p>
+
+      <h2 class="h3">Hangars Carved From Bedrock</h2>
+      <p>
+        The most economical reading of the excavation: vaults. Not bays for conventional aircraft, but climate-controlled chambers cut directly into bedrock — deep enough that nothing on the surface can photograph them, large enough to hold vehicles that were never assembled in any human factory.
+      </p>
+      <p>
+        Alien spacecraft storage. Not a metaphor. A facility description.
+      </p>
+
+      <h2 class="h3">The Tunnel Network</h2>
+      <p>
+        The second anomaly is directional. The subsurface geometry implied by the dig does not spread evenly outward — it runs <strong>westward</strong>, in a pressurized network that follows the natural geography toward the coast. A logistics line. A supply route. An exit.
+      </p>
+      <p>
+        Follow the line on a map and it terminates somewhere along the <strong>Pacific</strong> — ocean access for a facility that officially does not store anything worth reaching an ocean for.
+      </p>
+
+      <h2 class="h3">Why It Is a Story, Not Just a Theory</h2>
+      <p>
+        The tunnel-to-ocean hypothesis has circulated for years as forum speculation. What has never existed is the <strong>narrative architecture</strong> around it: a structured world with a beginning, a cast of people who discover the volume problem, and a destination at the end of the tunnels.
+      </p>
+      <p>
+        That is what is on the table at <strong>area51.monster</strong> — a mythology engineered for film or series development, paired with the domain that names it. Details live in the <a href="/film-concept/">film and series concept file</a>.
+      </p>
+
+      <div class="cta-band">
+        <p>DECLASSIFIED FILES</p>
+        <p style="color:#7a7a7a;letter-spacing:0.1em;text-transform:none;font-size:0.8rem;margin-bottom:1.2rem;">
+          <a href="/film-concept/">Film &amp; series concept</a> //
+          <a href="/acquisition/">Domain &amp; IP acquisition</a> //
+          <a href="/faq/">Acquisition FAQ</a>
+        </p>
+        <a href={`mailto:${SITE.email}?subject=area51.monster%20Story%20Inquiry`} class="btn">REQUEST THE FULL FILE</a>
+      </div>
+    </article>
+  </main>
+  <Footer />
+</BaseLayout>
